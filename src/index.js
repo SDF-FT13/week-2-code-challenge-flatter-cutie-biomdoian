@@ -27,3 +27,30 @@ fetch('http://localhost:4000/characters') // The json-server I am using port 400
   });
 
 let selectedCharacter = null; 
+
+            //Voting functionallity
+
+votesForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent default form submission
+    if (selectedCharacter) {
+        const votesToAdd = parseInt(votesInput.value);
+        if (!isNaN(votesToAdd)) {
+            // This code updates votes in db.json
+            fetch(`http://localhost:4000/characters/${selectedCharacter.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ votes: selectedCharacter.votes + votesToAdd }),
+            })
+            .then(response => response.json())
+            .then(updatedCharacter => {
+                selectedCharacter = updatedCharacter; 
+                voteCountDisplay.textContent = updatedCharacter.votes;
+                votesInput.value = ''; 
+                imageDisplay.src = changeGif(updatedCharacter.name);
+            });
+        }
+    }
+});
+
