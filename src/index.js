@@ -28,7 +28,7 @@ fetch('http://localhost:4000/characters') // The json-server I am using port 400
 
 let selectedCharacter = null; 
 
-            //Voting functionallity
+            //This code is for Voting functionallity
 
 votesForm.addEventListener('submit', (event) => {
     event.preventDefault(); // Prevent default form submission
@@ -54,3 +54,21 @@ votesForm.addEventListener('submit', (event) => {
     }
 });
 
+//This code resets the votes back to 0
+
+resetButton.addEventListener('click', () => {
+    if (selectedCharacter) {
+        fetch(`http://localhost:4000/characters/${selectedCharacter.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ votes: 0 }),
+        })
+        .then(response => response.json())
+        .then(updatedCharacter => {
+            selectedCharacter = updatedCharacter;
+            voteCountDisplay.textContent = updatedCharacter.votes;
+        });
+    }
+});
