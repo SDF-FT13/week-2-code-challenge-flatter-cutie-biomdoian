@@ -48,7 +48,6 @@ votesForm.addEventListener('submit', (event) => {
                 selectedCharacter = updatedCharacter; 
                 voteCountDisplay.textContent = updatedCharacter.votes;
                 votesInput.value = ''; 
-                imageDisplay.src = changeGif(updatedCharacter.name);
             });
         }
     }
