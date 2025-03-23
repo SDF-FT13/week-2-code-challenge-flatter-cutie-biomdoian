@@ -28,6 +28,7 @@ fetch('http://localhost:4000/characters') // The json-server I am using port 400
 
 let selectedCharacter = null; 
 
+
             //This code is for Voting functionallity
 
 votesForm.addEventListener('submit', (event) => {
